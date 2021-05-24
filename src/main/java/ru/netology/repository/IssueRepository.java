@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IssueRepository {
-    private List<Issue> items = new ArrayList<>();
+    private final List<Issue> items = new ArrayList<>();
 
     public boolean add(Issue item) {
         return items.add(item);

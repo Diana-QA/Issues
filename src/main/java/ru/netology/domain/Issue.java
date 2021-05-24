@@ -7,8 +7,8 @@ import java.util.Set;
 public class Issue implements Comparable<Issue>{
     private int id;
     private String author;
-    private Set<String> label = new HashSet<>();
-    private Set<String> assignee = new HashSet<>();
+    private Set<String> label;
+    private Set<String> assignee;
     private boolean open;
     private Date timeDaysAgo;
 

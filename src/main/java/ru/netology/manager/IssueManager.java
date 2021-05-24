@@ -3,8 +3,7 @@ package ru.netology.manager;
 import ru.netology.domain.Issue;
 import ru.netology.repository.IssueRepository;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -18,36 +17,61 @@ public class IssueManager {
         this.repository = repository;
     }
 
-    public Predicate<Issue> byAuthor(String author) {
-        return p -> p.getAuthor().equalsIgnoreCase(author);
+    public boolean add(Issue item) {
+        return repository.add(item);
     }
 
-    public Predicate<Issue> byLabel(String label) {
-        return p -> p.getLabel().contains(label);
+    public boolean addAll(List<? extends Issue> items) {
+        return this.repository.addAll(items);
     }
 
-    public Predicate<Issue> byAssignee(String assignee) {
-        return p -> p.getAssignee().contains(assignee);
+    public List<Issue> getAll() {
+        return repository.findAll();
     }
 
-    public List<Issue> filterIssues(List<Issue> issues, Predicate<Issue> predicate) {
-        return issues.stream().filter(predicate).collect(Collectors.toList());
+    public List<Issue> findByAuthor(String author) {
+        Predicate<String> byAuthor = Predicate.isEqual(author);
+        List<Issue> issues = new ArrayList<>();
+        for (Issue item : repository.findAll())
+            if (byAuthor.test(item.getAuthor())) {
+                issues.add(item);
+            }
+        return issues;
     }
 
-    public List<Issue> sortByIssue(List<Issue> sorted) {
-        Collections.sort(sorted);
-        return sorted;
+    public List<Issue> findByLabel(Set<String> label) {
+        Predicate<Set<String>> byLabel = p -> p.containsAll(label);
+        List<Issue> issues = new ArrayList<>();
+        for (Issue item : repository.findAll())
+            if (byLabel.test(item.getLabel())) {
+                issues.add(item);
+            }
+        return issues;
     }
 
-    public List<Issue> filterByAuthor(String author) {
-        return sortByIssue(filterIssues(repository.findAll(), byAuthor(author)));
+    public List<Issue> findByAssignee(Set<String> assignee) {
+        Predicate<Set<String>> byAssignee = p -> p.containsAll(assignee);
+        List<Issue> issues = new ArrayList<>();
+        for (Issue item : repository.findAll())
+            if (byAssignee.test(item.getAssignee())) {
+                issues.add(item);
+            }
+        return issues;
     }
 
-    public List<Issue> filterByLabel(String label) {
-        return sortByIssue(filterIssues(repository.findAll(), byAuthor(label)));
+    public List<Issue> sortByNewest() {
+        Comparator byNewest = Comparator.naturalOrder();
+        List<Issue> issues = new ArrayList<>();
+        issues.addAll(repository.findAll());
+        issues.sort(byNewest);
+        return issues;
     }
 
-    public List<Issue> filterByAssignee(String assignee) {
-        return sortByIssue(filterIssues(repository.findAll(), byAuthor(assignee)));
+    public List<Issue> sortByOldest() {
+        Comparator byOldest = Comparator.reverseOrder();
+        List<Issue> issues = new ArrayList<>();
+        issues.addAll(repository.findAll());
+        issues.sort(byOldest);
+        return issues;
     }
 }
