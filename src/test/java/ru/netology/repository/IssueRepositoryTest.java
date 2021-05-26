@@ -35,4 +35,51 @@ class IssueRepositoryTest {
         List<Issue> expected = List.of(issue2, issue3, issue5);
         assertEquals(actual, expected);
     }
+
+    @Test
+    void shouldClosedIssue() {
+        List<Issue> actual = repository.getClosedIssue();
+        List<Issue> expected = List.of(issue1, issue4);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void shouldOpenIssuesById() {
+        repository.openIssueById(1);
+        List<Issue> actual = repository.getOpenIssue();
+        List<Issue> expected = List.of(issue1, issue2, issue3, issue5);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void shouldClosedIssuesById() {
+        repository.closedIssueById(5);
+        List<Issue> actual = repository.getClosedIssue();
+        List<Issue> expected = List.of(issue1, issue4, issue5);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void shouldNonExistentIssue() {
+        repository.closedIssueById(6);
+        List<Issue> actual = repository.getClosedIssue();
+        List<Issue> expected = List.of(issue1, issue4);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void shouldOpenIssueById() {
+        repository.openIssueById(3);
+        List<Issue> actual = repository.getOpenIssue();
+        List<Issue> expected = List.of(issue2, issue3, issue5);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void shouldClosedIssueById() {
+        repository.closedIssueById(4);
+        List<Issue> actual = repository.getClosedIssue();
+        List<Issue> expected = List.of(issue1, issue4);
+        assertEquals(actual, expected);
+    }
 }

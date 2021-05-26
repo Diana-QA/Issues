@@ -9,24 +9,24 @@ public class Issue implements Comparable<Issue>{
     private String author;
     private Set<String> label;
     private Set<String> assignee;
-    private boolean open;
+    private boolean isOpen;
     private Date timeDaysAgo;
 
     public Issue() {
     }
 
-    public Issue(int id, String author, Set<String> label, Set<String> assignee, boolean open, Date timeDaysAgo) {
+    public Issue(int id, String author, Set<String> label, Set<String> assignee, boolean isOpen, Date timeDaysAgo) {
         this.id = id;
         this.author = author;
         this.label = label;
         this.assignee = assignee;
-        this.open = open;
+        this.isOpen = isOpen;
         this.timeDaysAgo = timeDaysAgo;
     }
 
     public Issue(int id, boolean open, Date timeDaysAgo) {
         this.id = id;
-        this.open = open;
+        this.isOpen = open;
         this.timeDaysAgo = timeDaysAgo;
     }
 
@@ -34,48 +34,25 @@ public class Issue implements Comparable<Issue>{
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getAuthor() {
         return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public Set<String> getLabel() {
         return label;
     }
 
-    public void setLabel(Set<String> label) {
-        this.label = label;
-    }
-
     public Set<String> getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(Set<String> assignee) {
-        this.assignee = assignee;
+    public boolean isOpen() {
+        return isOpen;
     }
 
-    public boolean isOpen() {
-        return open;
-    }
 
     public void setOpen(boolean open) {
-        this.open = open;
-    }
-
-    public Date getTimeDaysAgo() {
-        return timeDaysAgo;
-    }
-
-    public void setTimeDaysAgo(Date timeDaysAgo) {
-        this.timeDaysAgo = timeDaysAgo;
+        this.isOpen = open;
     }
 
     @Override

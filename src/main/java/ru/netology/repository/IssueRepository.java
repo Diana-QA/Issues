@@ -20,15 +20,25 @@ public class IssueRepository {
         return items;
     }
 
-    public void openIssueById(int id) {
-        for (Issue item : items) {
-            if (item.getId() == id && item.isOpen()) {
-                item.setOpen(false);
+    public List<Issue> getOpenIssue() {
+        List<Issue> issues = new ArrayList<>();
+        for (Issue item : items)
+            if (item.isOpen()) {
+                issues.add(item);
             }
-        }
+        return issues;
     }
 
-    public void closedIssueById(int id) {
+    public List<Issue> getClosedIssue() {
+        List<Issue> issues = new ArrayList<>();
+        for (Issue item : items)
+            if (!item.isOpen()) {
+                issues.add(item);
+            }
+        return issues;
+    }
+
+    public void openIssueById(int id) {
         for (Issue item : items) {
             if (item.getId() == id && !item.isOpen()) {
                 item.setOpen(true);
@@ -36,23 +46,11 @@ public class IssueRepository {
         }
     }
 
-    public List<Issue> getOpenIssue() {
-        List<Issue> issues = new ArrayList<>();
-        for (Issue item : findAll()) {
-            if (item.isOpen()) {
-                issues.add(item);
+    public void closedIssueById(int id) {
+        for (Issue item : items) {
+            if (item.getId() == id && item.isOpen()) {
+                item.setOpen(false);
             }
         }
-        return issues;
-    }
-
-    public List<Issue> getClosedIssue() {
-        List<Issue> issues = new ArrayList<>();
-        for (Issue item : findAll()) {
-            if (!item.isOpen()) {
-                issues.add(item);
-            }
-        }
-        return issues;
     }
 }

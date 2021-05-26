@@ -17,16 +17,8 @@ public class IssueManager {
         this.repository = repository;
     }
 
-    public boolean add(Issue item) {
-        return repository.add(item);
-    }
-
     public boolean addAll(List<? extends Issue> items) {
         return this.repository.addAll(items);
-    }
-
-    public List<Issue> getAll() {
-        return repository.findAll();
     }
 
     public List<Issue> findByAuthor(String author) {
